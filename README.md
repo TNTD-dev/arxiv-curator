@@ -1,8 +1,75 @@
-# 🔬 AI Research Paper Navigator
+# AI Research Paper Navigator
 
 **Intelligent RAG Research Assistant for arXiv Papers**
 
 An end-to-end Retrieval-Augmented Generation (RAG) system that fetches, processes, and enables intelligent querying of AI/ML research papers from arXiv. Built with advanced document processing (Docling), hybrid search (BM25 + vector), cross-encoder re-ranking, and powered by Groq's ultra-fast LLM API.
+
+---
+
+
+## 🏗️ Architecture
+
+### System Overview
+![System Architecture](static/system_architecture.png)
+
+*Complete system architecture showing data flow from arXiv ingestion through processing, storage, retrieval, and generation to user interface.*
+
+### Component Details
+
+**1. Data Ingestion Layer**
+- **arXiv API**: Search and fetch paper metadata
+- **PDF Downloader**: Download PDFs to local storage
+- **Docling Processor**: Advanced PDF parsing with structure preservation
+  - Extracts text with section hierarchy
+  - Extracts tables as structured JSON
+  - Extracts figures with captions and metadata
+- **Semantic Chunking**: Splits documents into chunks (512 tokens) with overlap (50 tokens) while preserving context
+
+**2. Storage Layer**
+- **Qdrant Vector Store**: Stores document embeddings (384 dimensions) for semantic search
+- **BM25 Index**: Inverted index for keyword-based lexical search
+- **Metadata Storage**: Paper IDs, sections, citations, and chunk relationships
+
+**3. Retrieval Layer**
+- **Hybrid Retrieval**: Combines BM25 (lexical) and vector (semantic) search scores
+  - Retrieves top-K candidates (default: 20)
+  - Weighted combination of both search methods
+- **Re-ranking**: Cross-encoder model refines relevance
+  - Takes top-K candidates
+  - Reranks to top-N most relevant contexts (default: 5)
+
+**4. Generation Layer**
+- **Prompt Engineering**: Constructs RAG prompt with:
+  - Retrieved contexts with citations
+  - User question
+  - Response mode (default/technical/beginner-friendly)
+- **Groq API**: Ultra-fast LLM inference
+  - Model: llama-3.3-70b-versatile
+  - Streaming support for real-time responses
+  - Temperature: 0.1 (deterministic)
+
+**5. Interface Layer**
+- **React Frontend**: Modern web UI with:
+  - Streaming response display
+  - Citation tracking and source links
+  - Query history management
+  - Statistics dashboard
+- **FastAPI Backend**: RESTful API with:
+  - `/api/query` - Main query endpoint
+  - `/api/health` - Health check
+  - `/api/stats` - System statistics
+  - Streaming support for real-time responses
+
+**6. Observability & Evaluation**
+- **Langfuse**: Tracks entire RAG pipeline
+  - Query traces
+  - API usage and latency
+  - Token consumption
+  - Error tracking
+- **RAGAS**: Automated evaluation metrics
+  - Faithfulness (answer grounded in context)
+  - Relevancy (answer relevance to question)
+  - Context precision (retrieval quality)
 
 ---
 
@@ -71,73 +138,6 @@ The system will automatically:
 - ✅ Fetch and index research papers
 - ✅ Initialize the RAG pipeline
 - ✅ Launch the React frontend
-
-
----
-
-## 🏗️ Architecture
-
-### System Overview
-![System Architecture](static/system_architecture.png)
-
-*Complete system architecture showing data flow from arXiv ingestion through processing, storage, retrieval, and generation to user interface.*
-
-### Component Details
-
-**1. Data Ingestion Layer**
-- **arXiv API**: Search and fetch paper metadata
-- **PDF Downloader**: Download PDFs to local storage
-- **Docling Processor**: Advanced PDF parsing with structure preservation
-  - Extracts text with section hierarchy
-  - Extracts tables as structured JSON
-  - Extracts figures with captions and metadata
-- **Semantic Chunking**: Splits documents into chunks (512 tokens) with overlap (50 tokens) while preserving context
-
-**2. Storage Layer**
-- **Qdrant Vector Store**: Stores document embeddings (384 dimensions) for semantic search
-- **BM25 Index**: Inverted index for keyword-based lexical search
-- **Metadata Storage**: Paper IDs, sections, citations, and chunk relationships
-
-**3. Retrieval Layer**
-- **Hybrid Retrieval**: Combines BM25 (lexical) and vector (semantic) search scores
-  - Retrieves top-K candidates (default: 20)
-  - Weighted combination of both search methods
-- **Re-ranking**: Cross-encoder model refines relevance
-  - Takes top-K candidates
-  - Reranks to top-N most relevant contexts (default: 5)
-
-**4. Generation Layer**
-- **Prompt Engineering**: Constructs RAG prompt with:
-  - Retrieved contexts with citations
-  - User question
-  - Response mode (default/technical/beginner-friendly)
-- **Groq API**: Ultra-fast LLM inference
-  - Model: llama-3.3-70b-versatile
-  - Streaming support for real-time responses
-  - Temperature: 0.1 (deterministic)
-
-**5. Interface Layer**
-- **React Frontend**: Modern web UI with:
-  - Streaming response display
-  - Citation tracking and source links
-  - Query history management
-  - Statistics dashboard
-- **FastAPI Backend**: RESTful API with:
-  - `/api/query` - Main query endpoint
-  - `/api/health` - Health check
-  - `/api/stats` - System statistics
-  - Streaming support for real-time responses
-
-**6. Observability & Evaluation**
-- **Langfuse**: Tracks entire RAG pipeline
-  - Query traces
-  - API usage and latency
-  - Token consumption
-  - Error tracking
-- **RAGAS**: Automated evaluation metrics
-  - Faithfulness (answer grounded in context)
-  - Relevancy (answer relevance to question)
-  - Context precision (retrieval quality)
 
 ---
 

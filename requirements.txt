@@ -1,0 +1,70 @@
+# Core Dependencies
+python-dotenv>=1.0.0
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+
+# arXiv Paper Fetching
+arxiv>=2.1.0
+
+# PDF Processing with Docling (supports tables, figures, structure)
+docling>=2.43.0
+docling-core>=1.6.0
+pillow>=10.1.0
+
+# PDF Processing Fallback - PyMuPDF (reliable, always works)
+PyMuPDF>=1.23.0
+
+# Vector Store & Embeddings
+qdrant-client>=1.7.0
+sentence-transformers>=2.2.2
+
+# BM25 Search
+rank-bm25>=0.2.2
+
+# Re-ranking
+torch>=2.1.0,<3.0.0
+transformers>=4.36.0,<5.0.0
+
+# LLM - Groq API
+groq>=0.4.0
+
+# LangChain Integration
+langchain>=0.1.0,<1.0.0
+langchain-community>=0.0.10
+langchain-groq>=0.0.1
+
+# Evaluation - RAGAS
+ragas>=0.1.0
+datasets>=2.16.0
+
+# Observability - Langfuse
+langfuse>=2.6.0
+
+# UI - Gradio
+gradio>=4.13.0
+
+# Utilities
+tqdm>=4.66.0
+loguru>=0.7.0
+pandas>=2.1.0
+numpy>=1.26.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+
+# Type Checking & Linting
+mypy>=1.7.0
+black>=23.12.0
+flake8>=6.1.0
+isort>=5.13.0
+
+#FastAPI
+fastapi>=0.104.1,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
+python-multipart>=0.0.6,<1.0.0
+sse-starlette>=1.6.5,<2.0.0

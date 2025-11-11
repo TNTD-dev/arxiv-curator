@@ -5,7 +5,8 @@
 An end-to-end Retrieval-Augmented Generation (RAG) system that fetches, processes, and enables intelligent querying of AI/ML research papers from arXiv. Built with advanced document processing (Docling), hybrid search (BM25 + vector), cross-encoder re-ranking, and powered by Groq's ultra-fast LLM API.
 
 ---
-
+## 📸 Demo
+![Demo](static/arXiv-curator_demo.gif)
 
 ## 🏗️ Architecture
 

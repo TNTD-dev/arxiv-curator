@@ -46,6 +46,7 @@ An end-to-end Retrieval-Augmented Generation (RAG) system that fetches, processe
   - Response mode (default/technical/beginner-friendly)
 - **Groq API**: Ultra-fast LLM inference
   - Model: llama-3.3-70b-versatile
+  - Rate limits: 30 RPM, 1K RPD, 200 tokens/sec, 100k TPD
   - Streaming support for real-time responses
   - Temperature: 0.1 (deterministic)
 
@@ -88,7 +89,7 @@ An end-to-end Retrieval-Augmented Generation (RAG) system that fetches, processe
 - **📈 Top-K + Top-N Strategy**: Retrieve top-K candidates, re-rank to top-N for final context
 
 ### LLM & Generation
-- **⚡ Ultra-Fast LLM**: Groq API with llama-3.3-70b-versatile (500+ tokens/sec)
+- **⚡ Ultra-Fast LLM**: Groq API with llama-3.3-70b-versatile (30 RPM, 1K RPD, 200 tokens/sec, 100k TPD)
 - **🌊 Streaming Responses**: Real-time token streaming for better UX
 - **🎨 Multiple Response Modes**: Default, technical, and beginner-friendly modes
 - **📝 Citation Tracking**: Automatic source attribution with paper references
@@ -147,7 +148,7 @@ The system will automatically:
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
 | **PDF Processing** | Docling | Extract text, tables, figures with structure |
-| **LLM API** | Groq (llama-3.3-70b) | Ultra-fast inference (500+ tok/s) |
+| **LLM API** | Groq (llama-3.3-70b) | Ultra-fast inference (30 RPM, 1K RPD, 200 tokens/sec, 100k TPD) |
 | **Vector Store** | Qdrant | High-performance vector database |
 | **Embeddings** | Sentence-Transformers | all-MiniLM-L6-v2 model |
 | **Lexical Search** | BM25 (rank-bm25) | Keyword-based retrieval |
@@ -165,7 +166,7 @@ The system will automatically:
 
 - Python 3.10 or higher
 - Node.js 16+ (for frontend)
-- Groq API key (free tier: 14,400 requests/day)
+- Groq API key (30 RPM, 1K RPD, 200 tokens/sec, 100k TPD)
 - 4GB+ RAM recommended
 - Docker & Docker Compose (optional, for containerized deployment)
 
